@@ -1,3 +1,7 @@
+# TODO
+- bootstrapped using `nix-shell -p rustup pkg-config lld glibc`; rust ecosystem is unified on `rustup`, but we're missing some dynlibs, like `glib-sys`
+- no full demo working yet
+
 # MFEKglif
 
 Glyph editor for the Modular Font Editor K project. [![Build Status](https://img.shields.io/github/workflow/status/MFEK/glif/Rust?label=Rust&logo=Rust)](https://github.com/MFEK/glif/actions?workflow=Rust)
