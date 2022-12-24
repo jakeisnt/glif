@@ -30,7 +30,6 @@ in {
           rustc = rust_channel;
         };
       in {
-
         defaultPackage = naersk-lib.buildPackage {
           pname = name;
           root = ./.;
@@ -47,18 +46,11 @@ in {
             lld
             # not sure
             pkg-config
-            # sqlite3 support for journal store
-            sqlite
-            # for `rug`
-            gnum4
             # for tbe web
             wasm-pack
-            # web development
-            nodejs
-            nodePackages.yarn
           ];
 
-          # LD_LIBRARY_PATH = "${with pkgs; lib.makeLibraryPath ([ pkg-config ])}:$LD_LIBRARY_PATH";
+          LD_LIBRARY_PATH = "${with pkgs; lib.makeLibraryPath ([ pkg-config ])}:$LD_LIBRARY_PATH";
 
           # for rust-analyzer; the target dir of the compiler for the project
           OUT_DIR = "./target";
@@ -69,6 +61,6 @@ in {
         };
 
         # For compatibility with older versions of the `nix` binary
-        # devShell = self.devShells.${system}.default;
+        devShell = self.devShells.${system}.default;
       });
 }
