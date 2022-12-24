@@ -46,9 +46,12 @@ in {
             lld
             pkg-config
             glibc
+            gtk3.dev
+            SDL2
           ];
 
-          LD_LIBRARY_PATH = "${with pkgs; lib.makeLibraryPath ([ pkg-config ])}:$LD_LIBRARY_PATH";
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [ pkg-config ])}:$LD_LIBRARY_PATH";
+          PKG_CONFIG_PATH = "${pkgs.glibc}:PKG_CONFIG_PATH";
 
           # for rust-analyzer; the target dir of the compiler for the project
           OUT_DIR = "./target";
