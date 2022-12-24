@@ -52,12 +52,13 @@ in {
             SDL2
             glif-test
 
+            libGL
             vulkan-tools
-            vulkan-headers
+            vulkan-tools-lunarg
             mesa
           ];
 
-          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [ mesa vulkan-tools vulkan-headers pkg-config ])}:$LD_LIBRARY_PATH";
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [ libGL mesa vulkan-tools vulkan-tools-lunarg pkg-config ])}:$LD_LIBRARY_PATH";
           PKG_CONFIG_PATH = "${pkgs.glibc}:PKG_CONFIG_PATH";
 
           # for rust-analyzer; the target dir of the compiler for the project
