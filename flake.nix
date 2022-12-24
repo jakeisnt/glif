@@ -44,10 +44,8 @@ in {
             cargo
             # fast linking
             lld
-            # not sure
             pkg-config
-            # for tbe web
-            wasm-pack
+            glibc
           ];
 
           LD_LIBRARY_PATH = "${with pkgs; lib.makeLibraryPath ([ pkg-config ])}:$LD_LIBRARY_PATH";
