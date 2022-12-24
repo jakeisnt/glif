@@ -25,6 +25,9 @@ in {
       let
         pkgs = import nixpkgs { inherit overlays system; };
         rust_channel = pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain;
+        glif-test = pkgs.writeScriptBin "glif-test" ''
+          RUST_LOG=debug RUST_BACKTRACE=1 cargo run -- examples/Q_.glif
+        '';
         naersk-lib = naersk.lib."${system}".override {
           cargo = rust_channel;
           rustc = rust_channel;
@@ -42,15 +45,19 @@ in {
             rust_channel
             rust-analyzer
             cargo
-            # fast linking
             lld
             pkg-config
             glibc
             gtk3.dev
             SDL2
+            glif-test
+
+            vulkan-tools
+            vulkan-headers
+            mesa
           ];
 
-          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [ pkg-config ])}:$LD_LIBRARY_PATH";
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath (with pkgs; [ mesa vulkan-tools vulkan-headers pkg-config ])}:$LD_LIBRARY_PATH";
           PKG_CONFIG_PATH = "${pkgs.glibc}:PKG_CONFIG_PATH";
 
           # for rust-analyzer; the target dir of the compiler for the project
